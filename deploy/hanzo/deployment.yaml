@@ -1,0 +1,119 @@
+# cal.hanzo.ai — Hanzo-white-labeled cal.com deploy on hanzo-k8s (DOKS do-sfo3).
+#
+# Namespace-isolated (hanzo-cal), hanzoai/ingress ingressClass, cert-manager
+# letsencrypt-prod TLS, ghcr-pull image pull. Cloudflare proxies cal.hanzo.ai
+# -> this ingress.
+#
+# The cal.com container runs prisma migrate + app-store seed on start
+# (scripts/start.sh), so a reachable Postgres (DATABASE_URL) is a hard
+# prerequisite. All brand/secret values come from the `cal-env` +
+# `cal-secrets` objects (see kustomization.yaml and the report matrix); nothing
+# brand- or secret-bearing is baked into the image.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: hanzo-cal
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cal
+  namespace: hanzo-cal
+  labels:
+    app.kubernetes.io/name: cal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: cal
+  strategy:
+    # cal.com runs a DB migration on boot; a single-writer rolling step avoids
+    # two pods racing `prisma migrate deploy`. Scale replicas past 1 only after
+    # confirming migrations are idempotent under concurrency (they are advisory-
+    # locked upstream, but keep maxSurge=1 to be safe).
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: cal
+    spec:
+      imagePullSecrets:
+        - name: ghcr-pull
+      containers:
+        - name: cal
+          image: ghcr.io/hanzoai/calendar:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          envFrom:
+            # Non-secret brand + URL config.
+            - configMapRef:
+                name: cal-env
+            # DATABASE_URL, NEXTAUTH_SECRET, CALENDSO_ENCRYPTION_KEY,
+            # GOOGLE_API_CREDENTIALS, SMTP creds. Populated from KMS — see report.
+            - secretRef:
+                name: cal-secrets
+          resources:
+            requests:
+              cpu: "500m"
+              memory: 1Gi
+            limits:
+              memory: 3Gi
+          readinessProbe:
+            httpGet:
+              path: /auth/login
+              port: http
+            initialDelaySeconds: 40
+            periodSeconds: 10
+            failureThreshold: 6
+          livenessProbe:
+            httpGet:
+              path: /auth/login
+              port: http
+            initialDelaySeconds: 90
+            periodSeconds: 20
+            failureThreshold: 6
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cal
+  namespace: hanzo-cal
+spec:
+  selector:
+    app.kubernetes.io/name: cal
+  ports:
+    - name: http
+      port: 80
+      targetPort: 3000
+      protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cal
+  namespace: hanzo-cal
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: ingress
+  tls:
+    - hosts:
+        - cal.hanzo.ai
+      secretName: cal-tls
+  rules:
+    - host: cal.hanzo.ai
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: cal
+                port:
+                  number: 80

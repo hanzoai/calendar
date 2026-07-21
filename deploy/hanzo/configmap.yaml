@@ -1,0 +1,39 @@
+# Non-secret Hanzo white-label + runtime config for cal.hanzo.ai.
+#
+# cal.com reads brand identity entirely from NEXT_PUBLIC_* env (see
+# packages/lib/constants.ts: APP_NAME / COMPANY_NAME / SENDER_ID /
+# SUPPORT_MAIL_ADDRESS / WEBSITE_URL all fall back to cal.com only when unset).
+# Overriding them here is the whole white-label — no source fork of branding.
+#
+# NEXT_PUBLIC_* values that affect statically-rendered HTML are ALSO baked at
+# image build (see .github/workflows/deploy.yml build-args + Dockerfile).
+# start.sh rewrites the one placeholder (NEXT_PUBLIC_WEBAPP_URL) at boot, so the
+# URL here is authoritative at run time; the rest must match the build args.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cal-env
+  namespace: hanzo-cal
+data:
+  # --- URLs (authoritative at runtime; start.sh find/replaces the baked URL) ---
+  NEXT_PUBLIC_WEBAPP_URL: "https://cal.hanzo.ai"
+  NEXT_PUBLIC_WEBSITE_URL: "https://cal.hanzo.ai"
+  NEXTAUTH_URL: "https://cal.hanzo.ai"
+
+  # --- Brand identity ---
+  NEXT_PUBLIC_APP_NAME: "Hanzo Calendar"
+  NEXT_PUBLIC_COMPANY_NAME: "Hanzo Industries, Inc."
+  NEXT_PUBLIC_SUPPORT_MAIL_ADDRESS: "support@hanzo.ai"
+  # SENDER_ID: SMS/short sender label — letters/numbers/spaces, max 11 chars.
+  NEXT_PUBLIC_SENDER_ID: "Hanzo"
+  NEXT_PUBLIC_SENDGRID_SENDER_NAME: "Hanzo Calendar"
+
+  # --- Email From (transactional booking mail) ---
+  EMAIL_FROM: "notifications@hanzo.ai"
+  EMAIL_FROM_NAME: "Hanzo Calendar"
+
+  # --- Operational ---
+  CALCOM_TELEMETRY_DISABLED: "1"
+  # Single-org install: cal.hanzo.ai is one Hanzo team, not a multi-tenant SaaS.
+  ORGANIZATIONS_ENABLED: "false"
+  NEXT_PUBLIC_DISABLE_SIGNUP: "true"

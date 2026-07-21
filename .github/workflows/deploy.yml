@@ -1,0 +1,80 @@
+# cal.hanzo.ai build + deploy — Hanzo white-label of cal.com.
+#
+# Mirrors the Hanzo app deploy pattern (cf. lux-apps/fund, hanzoai/world):
+#   build image -> push ghcr.io/hanzoai/calendar -> kubectl rollout on hanzo-k8s.
+#
+# Fires only on the hanzo/overlay branch (the white-label branch) + manual
+# dispatch, so it never collides with upstream cal.com CI on other branches.
+# PRs and forks build nothing here.
+#
+# Unlike fund (a static SPA), cal.com's own multi-stage Dockerfile builds the
+# full Next.js app. Brand-affecting NEXT_PUBLIC_* values are baked as build-args
+# so statically-rendered HTML carries the Hanzo brand; NEXT_PUBLIC_WEBAPP_URL is
+# a placeholder that the container's start.sh rewrites at boot to match the
+# runtime env (keeps the image URL-agnostic / reusable across envs).
+name: cal-hanzo-deploy
+
+on:
+  push:
+    branches: [hanzo/overlay]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: cal-hanzo-deploy
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ghcr.io/hanzoai/calendar:latest
+            ghcr.io/hanzoai/calendar:${{ github.sha }}
+          build-args: |
+            NEXT_PUBLIC_APP_NAME=Hanzo Calendar
+            NEXT_PUBLIC_COMPANY_NAME=Hanzo Industries, Inc.
+            NEXT_PUBLIC_SUPPORT_MAIL_ADDRESS=support@hanzo.ai
+            NEXT_PUBLIC_WEBSITE_URL=https://cal.hanzo.ai
+            CALCOM_TELEMETRY_DISABLED=1
+            ORGANIZATIONS_ENABLED=false
+            MAX_OLD_SPACE_SIZE=6144
+          # cal.com's Dockerfile bakes NEXT_PUBLIC_WEBAPP_URL as a placeholder
+          # (http://NEXT_PUBLIC_WEBAPP_URL_PLACEHOLDER) and start.sh rewrites it
+          # to the pod's NEXT_PUBLIC_WEBAPP_URL (=https://cal.hanzo.ai) at boot.
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  rollout:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Write scoped kubeconfig (ci-rollout SA — patch-deployments only)
+        env:
+          ROLLOUT_KUBECONFIG: ${{ secrets.ROLLOUT_KUBECONFIG }}
+        run: |
+          install -m 600 /dev/null "$HOME/.kube-ci"
+          printf '%s' "$ROLLOUT_KUBECONFIG" > "$HOME/.kube-ci"
+      - name: Roll deployment to this sha
+        run: |
+          kubectl --kubeconfig "$HOME/.kube-ci" -n hanzo-cal set image deploy/cal '*=ghcr.io/hanzoai/calendar:${{ github.sha }}'
+          kubectl --kubeconfig "$HOME/.kube-ci" -n hanzo-cal rollout status deploy/cal --timeout=300s
