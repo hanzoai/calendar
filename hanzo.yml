@@ -1,0 +1,28 @@
+# Canonical CI/CD config for hanzoai/calendar — read by hanzoai/ci (via
+# .hanzo/workflows/cicd.yml) and by platform.hanzo.ai.
+#
+# Large yarn 4 + turbo monorepo. The gate is a real typecheck of @calcom/ui —
+# tsc --noEmit over the shared component library, which resolves through the TS
+# path aliases into @calcom/lib, @calcom/types and the prisma client, so it
+# compiles a wide slice of the codebase, not just one folder.
+#
+# Two things it needs and gets, in order:
+#   - DATABASE_URL must be DEFINED (not reachable) or `prisma generate` — which
+#     the root postinstall runs through `turbo run post-install` — refuses to
+#     read the datasource block at all. It is a parse-time env lookup; nothing
+#     connects.
+#   - the icon components are generated, so the package builds them before it
+#     typechecks the code that imports them.
+#
+# Not the Dockerfile: that build wants a real DATABASE_URL, does a full Next
+# production compile of apps/web, and is an hour on a shared fleet. A gate that
+# slow is one people learn to ignore. Not `turbo type-check` across every
+# workspace either, for the same reason.
+test:
+  - name: typecheck
+    run: |
+      export DATABASE_URL=postgresql://ci:ci@localhost:5432/ci
+      export DATABASE_DIRECT_URL="$DATABASE_URL"
+      yarn install --immutable
+      yarn workspace @calcom/ui build
+      yarn workspace @calcom/ui type-check
