@@ -50,8 +50,7 @@ const EmailHead = ({ title = "" }) => {
         html={`<!--[if lte mso 11]><style type="text/css">.mj-outlook-group-fix { width:100% !important; }</style><![endif]-->`}
       />
       <RawHtml
-        html={`<!--[if !mso]><!--><link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet" type="text/css"/>
-      <style type="text/css">@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700);</style><!--<![endif]-->`}
+        html={`<!--[if !mso]><!--><style type="text/css"></style><!--<![endif]-->`}
       />
       <style type="text/css">
         {`

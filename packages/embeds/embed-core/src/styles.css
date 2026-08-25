@@ -2,10 +2,10 @@
 @import "@coss/ui/styles.css";
 @import "../../../config/theme/tokens.css";
 
-@font-face {
-  font-family: "Cal Sans";
-  src: url("https://cal.com/cal.ttf");
-}
+/* No @font-face here: this stylesheet runs inside a CUSTOMER's page, and an
+   embed that fetches a face makes a third-party request on their behalf. It
+   used to name cal.com, so every page carrying our embed told that host.
+   The headings resolve to the host page's own stack. */
 
 h1,
 h2,
@@ -13,7 +13,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Cal Sans";
+  font-family: inherit;
   font-weight: normal;
   letter-spacing: normal;
 }

@@ -1,13 +1,9 @@
+/* Zen, self-hosted. One variable file covers 100-900, so the display and text
+   roles are one download rather than two families. */
 @font-face {
-  font-family: "Cal Sans";
-  src: url("/fonts/cal.ttf");
-}
-
-@font-face {
-  font-family: "Inter var";
+  font-family: "Zen";
   font-weight: 100 900;
   font-display: swap;
   font-style: normal;
-  font-named-instance: "Regular";
-  src: url("/fonts/Inter-roman.var.woff2") format("woff2");
+  src: url("/fonts/Zen-Variable.woff2") format("woff2");
 }
