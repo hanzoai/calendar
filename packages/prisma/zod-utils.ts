@@ -541,8 +541,11 @@ export const DeploymentTheme = z
     bookingMedian: z.string().default("#494949"),
     bookingDark: z.string().default("#313131"),
     bookingDarker: z.string().default("#292929"),
-    fontName: z.string().default("Cal Sans"),
-    fontSrc: z.string().default("https://cal.com/cal.ttf"),
+    fontName: z.string().default("Zen"),
+    // Same-origin: this default is written into customer-facing embeds, and the
+    // one it replaced pointed at cal.com, so every branded booking page fetched
+    // its face from our upstream's host.
+    fontSrc: z.string().default("/fonts/Zen-Variable.woff2"),
   })
   .optional();
 
