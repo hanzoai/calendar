@@ -2,7 +2,7 @@
 import type { Data } from "@/pages/api/get-managed-users";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import { Poppins } from "next/font/google";
+import { ZenSans } from "@hanzo/font";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import Select from "react-select";
@@ -10,7 +10,7 @@ import Select from "react-select";
 import { CalProvider, CalOAuthProvider, BookerEmbed, Router as CalRouter } from "@calcom/atoms";
 import "@calcom/atoms/globals.min.css";
 
-const poppins = Poppins({ subsets: ["latin"], weight: ["400", "800"] });
+const poppins = ZenSans;
 type TUser = Data["users"][0];
 
 function generateRandomEmail(name: string) {

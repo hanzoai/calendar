@@ -1,7 +1,7 @@
-import { Poppins } from "next/font/google";
+import { ZenSans } from "@hanzo/font";
 import Link from "next/link";
 
-const poppins = Poppins({ subsets: ["latin"], weight: ["400", "800"] });
+const poppins = ZenSans;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function Navbar({ username }: { username?: string }) {

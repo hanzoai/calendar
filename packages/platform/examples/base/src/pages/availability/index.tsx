@@ -1,9 +1,9 @@
 import { Navbar } from "@/components/Navbar";
-import { Inter } from "next/font/google";
+import { ZenSans } from "@hanzo/font";
 
 import { ListSchedules, CreateSchedule } from "@calcom/atoms";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = ZenSans;
 
 export default function Availability(props: { calUsername: string; calEmail: string }) {
   return (

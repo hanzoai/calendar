@@ -1,5 +1,5 @@
 import { Navbar } from "@/components/Navbar";
-import { Inter } from "next/font/google";
+import { ZenSans } from "@hanzo/font";
 // eslint-disable-next-line @calcom/eslint/deprecated-imports-next-router
 import { useRouter } from "next/router";
 
@@ -7,7 +7,7 @@ import { useBooking, useCancelBooking } from "@calcom/atoms";
 import dayjs from "@calcom/dayjs";
 import { Icon } from "@calcom/ui/components/icon";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = ZenSans;
 
 export default function Bookings(props: { calUsername: string; calEmail: string }) {
   const router = useRouter();

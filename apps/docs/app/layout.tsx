@@ -6,20 +6,20 @@ import "nextra-theme-docs/style.css";
 import "./logo.css";
 import "./fonts.css";
 
-const calSans = localFont({
-  src: "../fonts/CalSans-Regular.woff2",
+const displayFont = localFont({
+  src: "../fonts/Zen-Regular.woff2",
   variable: "--font-cal",
   display: "swap",
   weight: "400",
 });
 
-const calSansUI = localFont({
+const uiFont = localFont({
   src: [
-    { path: "../fonts/CalSansUI-UILight.woff2", weight: "300" },
-    { path: "../fonts/CalSansUI-UIRegular.woff2", weight: "400" },
-    { path: "../fonts/CalSansUI-UIMedium.woff2", weight: "500" },
-    { path: "../fonts/CalSansUI-UISemiBold.woff2", weight: "600" },
-    { path: "../fonts/CalSansUI-UIBold.woff2", weight: "700" },
+    { path: "../fonts/Zen-Light.woff2", weight: "300" },
+    { path: "../fonts/Zen-Regular.woff2", weight: "400" },
+    { path: "../fonts/Zen-Medium.woff2", weight: "500" },
+    { path: "../fonts/Zen-SemiBold.woff2", weight: "600" },
+    { path: "../fonts/Zen-Bold.woff2", weight: "700" },
   ],
   variable: "--font-cal-ui",
   display: "swap",
@@ -72,7 +72,7 @@ export default async function RootLayout({
       lang="en"
       dir="ltr"
       suppressHydrationWarning
-      className={`${calSans.variable} ${calSansUI.variable}`}
+      className={`${displayFont.variable} ${uiFont.variable}`}
     >
       <Head />
       <body>
