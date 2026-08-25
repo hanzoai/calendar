@@ -37,7 +37,7 @@ async function handler(req: NextRequest) {
 
   try {
     const fontResults = await Promise.allSettled([
-      fetch(new URL("/fonts/cal.ttf", WEBAPP_URL)).then((res) => res.arrayBuffer()),
+      fetch(new URL("/fonts/Zen-SemiBold.ttf", WEBAPP_URL)).then((res) => res.arrayBuffer()),
       fetch(new URL("/fonts/Zen-Regular.ttf", WEBAPP_URL)).then((res) => res.arrayBuffer()),
       fetch(new URL("/fonts/Zen-Medium.ttf", WEBAPP_URL)).then((res) => res.arrayBuffer()),
     ]);
