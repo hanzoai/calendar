@@ -1,6 +1,6 @@
+import { ZenSans } from "@hanzo/font";
 import { _generateMetadataForStaticPage } from "app/_utils";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 
 import { IconSprites } from "@calcom/ui/components/icon";
@@ -15,9 +15,9 @@ export async function generateMetadata(): Promise<Metadata> {
   return await _generateMetadataForStaticPage("Icons Showcase", "", undefined, undefined, "/icons");
 }
 
-const interFont = Inter({ subsets: ["latin"], variable: "--font-sans", preload: true, display: "swap" });
+const sansFont = ZenSans;
 const calFont = localFont({
-  src: "../../fonts/CalSans-SemiBold.woff2",
+  src: "../../fonts/Zen-SemiBold.woff2",
   variable: "--font-cal",
   preload: true,
   display: "swap",
@@ -28,7 +28,7 @@ export default function IconsPage() {
   const icons = Array.from(lucideIconList).sort() as IconName[];
 
   return (
-    <div className={`${interFont.variable} ${calFont.variable}`}>
+    <div className={`${sansFont.variable} ${calFont.variable}`}>
       <div className="bg-subtle flex h-screen">
         <IconSprites />
         <div className="bg-default m-auto min-w-full rounded-md p-10 text-right ltr:text-left">

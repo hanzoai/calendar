@@ -1,11 +1,11 @@
 import { Navbar } from "@/components/Navbar";
-import { Inter } from "next/font/google";
+import { ZenSans } from "@hanzo/font";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 import { PaymentForm } from "@calcom/atoms";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = ZenSans;
 
 export default function Payment(props: { calUsername: string; calEmail: string }) {
   const pathname = usePathname();

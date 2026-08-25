@@ -1,11 +1,11 @@
 import { Navbar } from "@/components/Navbar";
-import { Inter } from "next/font/google";
+import { ZenSans } from "@hanzo/font";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
 import { Booker, useEventTypes, useTeamEventTypes, useTeams } from "@calcom/atoms";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = ZenSans;
 
 export default function Bookings(props: { calUsername: string; calEmail: string }) {
   const [bookingTitle, setBookingTitle] = useState<string | null>(null);

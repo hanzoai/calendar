@@ -1,9 +1,9 @@
 import { type ConferencingAppsCustomClassNames, ConferencingAppsSettings } from "@calcom/atoms";
-import { Inter } from "next/font/google";
+import { ZenSans } from "@hanzo/font";
 import { usePathname } from "next/navigation";
 import { Navbar } from "@/components/Navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = ZenSans;
 
 export default function ConferencingApps(props: { calUsername: string; calEmail: string }) {
   const pathname = usePathname();

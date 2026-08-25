@@ -1,5 +1,5 @@
 import { Navbar } from "@/components/Navbar";
-import { Inter } from "next/font/google";
+import { ZenSans } from "@hanzo/font";
 // eslint-disable-next-line @calcom/eslint/deprecated-imports-next-router
 import { useRouter } from "next/router";
 import { useState, useRef, useCallback } from "react";
@@ -13,7 +13,7 @@ import {
   CreateEventType,
 } from "@calcom/atoms";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = ZenSans;
 
 export default function Bookings(props: { calUsername: string; calEmail: string }) {
   const [eventTypeId, setEventTypeId] = useState<number | null>(null);
