@@ -1,26 +1,25 @@
 import { Navbar } from "@/components/Navbar";
-import { ZenSans } from "@hanzo/font";
+import { Zen } from "@hanzo/font";
 // eslint-disable-next-line @calcom/eslint/deprecated-imports-next-router
 import { useRouter } from "next/router";
 
 import { Connect, StripeConnect } from "@calcom/atoms";
 
-const inter = ZenSans;
-const poppins = ZenSans;
+const sans = Zen;
 
 export default function Home(props: { calUsername: string; calEmail: string }) {
   const router = useRouter();
 
   return (
-    <main className={`flex min-h-screen flex-col ${inter.className} items-center justify-center`}>
+    <main className={`flex min-h-screen flex-col ${sans.className} items-center justify-center`}>
       <Navbar username={props.calUsername} />
       <div
-        className={` h-screen w-full items-center justify-center gap-y-3  font-mono lg:flex ${inter.className} gap-16 `}>
+        className={` h-screen w-full items-center justify-center gap-y-3  font-mono lg:flex ${sans.className} gap-16 `}>
         <div className="ml-32">
-          <h1 className={`${poppins.className} w-full pb-3 text-7xl font-bold`}>
+          <h1 className={`${sans.className} w-full pb-3 text-7xl font-bold`}>
             The all in one Scheduling marketplace
           </h1>
-          <p className={`w-[70%] font-normal ${inter.className} pb-3 text-2xl`}>
+          <p className={`w-[70%] font-normal ${sans.className} pb-3 text-2xl`}>
             To get started, connect your google calendar.
           </p>
           <div data-testid="connect-atoms" className="flex flex-row gap-4">

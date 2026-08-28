@@ -103,7 +103,7 @@
 @layer theme {
   :root,
   :host {
-    --font-sans: var(--font-inter);
+    --font-sans: var(--font-zen-sans);
     --color-red-50: oklch(97.1% 0.013 17.38);
     --color-red-100: oklch(93.6% 0.032 17.717);
     --color-red-200: oklch(88.5% 0.062 18.334);
@@ -237,7 +237,7 @@
     --aspect-video: 16/9;
     --default-transition-duration: 0.15s;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    --default-font-family: var(--font-inter);
+    --default-font-family: var(--font-zen-sans);
     --default-mono-font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
     --radius: var(--radius);
@@ -4963,7 +4963,7 @@
       monospace;
   }
   .font-sans {
-    font-family: var(--font-inter);
+    font-family: var(--font-zen-sans);
   }
   .text-2xl {
     font-size: var(--text-2xl);

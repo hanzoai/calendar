@@ -1,12 +1,12 @@
 import { Navbar } from "@/components/Navbar";
-import { ZenSans } from "@hanzo/font";
+import { Zen } from "@hanzo/font";
 import { useRouter } from "next/router";
 import { useRef, useCallback } from "react";
 
 import type { AvailabilitySettingsFormRef } from "@calcom/atoms";
 import { AvailabilitySettings } from "@calcom/atoms";
 
-const inter = ZenSans;
+const sans = Zen;
 
 export default function Availability(props: { calUsername: string; calEmail: string }) {
   const router = useRouter();
@@ -33,7 +33,7 @@ export default function Availability(props: { calUsername: string; calEmail: str
   };
 
   return (
-    <main className={`flex min-h-screen flex-col ${inter.className}`}>
+    <main className={`flex min-h-screen flex-col ${sans.className}`}>
       <Navbar username={props.calUsername} />
       <div>
         <h1 className="mx-10 my-4 text-2xl font-semibold">Availability Settings</h1>

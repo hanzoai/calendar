@@ -1,9 +1,9 @@
 import { type ConferencingAppsCustomClassNames, ConferencingAppsSettings } from "@calcom/atoms";
-import { ZenSans } from "@hanzo/font";
+import { Zen } from "@hanzo/font";
 import { usePathname } from "next/navigation";
 import { Navbar } from "@/components/Navbar";
 
-const inter = ZenSans;
+const sans = Zen;
 
 export default function ConferencingApps(props: { calUsername: string; calEmail: string }) {
   const pathname = usePathname();
@@ -23,7 +23,7 @@ export default function ConferencingApps(props: { calUsername: string; calEmail:
 
   return (
     <main
-      className={`flex min-h-screen flex-col ${inter.className} main text-default flex min-h-full w-full flex-col items-center overflow-visible`}>
+      className={`flex min-h-screen flex-col ${sans.className} main text-default flex min-h-full w-full flex-col items-center overflow-visible`}>
       <Navbar username={props.calUsername} />
       <div className="my-8">
         <ConferencingAppsSettings returnTo={callbackUri} onErrorReturnTo={callbackUri} customClassNames={customClassNames}/>
