@@ -2,7 +2,7 @@
 import type { Data } from "@/pages/api/get-managed-users";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import { ZenSans } from "@hanzo/font";
+import { Zen } from "@hanzo/font";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import Select from "react-select";
@@ -10,7 +10,7 @@ import Select from "react-select";
 import { CalProvider, CalOAuthProvider, BookerEmbed, Router as CalRouter } from "@calcom/atoms";
 import "@calcom/atoms/globals.min.css";
 
-const poppins = ZenSans;
+const sans = Zen;
 type TUser = Data["users"][0];
 
 function generateRandomEmail(name: string) {
@@ -119,7 +119,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [selectedUser]);
 
   return (
-    <div className={`${poppins.className} text-black`}>
+    <div className={`${sans.className} text-black`}>
       {options.length > 0 && (
         <Select
           defaultValue={options.find((opt: TUser | null) => opt?.email?.includes("lauris"))}

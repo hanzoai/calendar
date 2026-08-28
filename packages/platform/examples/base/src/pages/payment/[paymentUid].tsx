@@ -1,11 +1,11 @@
 import { Navbar } from "@/components/Navbar";
-import { ZenSans } from "@hanzo/font";
+import { Zen } from "@hanzo/font";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 import { PaymentForm } from "@calcom/atoms";
 
-const inter = ZenSans;
+const sans = Zen;
 
 export default function Payment(props: { calUsername: string; calEmail: string }) {
   const pathname = usePathname();
@@ -14,7 +14,7 @@ export default function Payment(props: { calUsername: string; calEmail: string }
   const uid = pathname.split("/").pop();
 
   return (
-    <main className={`flex min-h-screen flex-col ${inter.className}`}>
+    <main className={`flex min-h-screen flex-col ${sans.className}`}>
       <Navbar username={props.calUsername} />
       <PaymentForm
         paymentUid={uid ?? ""}

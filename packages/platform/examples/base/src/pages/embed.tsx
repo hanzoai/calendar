@@ -1,11 +1,11 @@
 import { Navbar } from "@/components/Navbar";
-import { ZenSans } from "@hanzo/font";
+import { Zen } from "@hanzo/font";
 
-const inter = ZenSans;
+const sans = Zen;
 
 export default function Embed(props: { calUsername: string; calEmail: string }) {
   return (
-    <main className={`flex ${inter.className} text-default flex flex-col`}>
+    <main className={`flex ${sans.className} text-default flex flex-col`}>
       <Navbar username={props.calUsername} />
       <div>
         <h1 className="mx-8 my-4 text-2xl font-bold">This is the booker embed</h1>

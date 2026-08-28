@@ -1,10 +1,10 @@
 import { TroubleShooter } from "@calcom/atoms";
-import { ZenSans } from "@hanzo/font";
+import { Zen } from "@hanzo/font";
 import { Navbar } from "@/components/Navbar";
 // eslint-disable-next-line @calcom/eslint/deprecated-imports-next-router
 import { useRouter } from "next/router";
 
-const inter = ZenSans;
+const sans = Zen;
 
 export default function Troubleshooter(props: {
   calUsername: string;
@@ -13,7 +13,7 @@ export default function Troubleshooter(props: {
   const router = useRouter();
 
   return (
-    <main className={`flex min-h-screen flex-col ${inter.className}`}>
+    <main className={`flex min-h-screen flex-col ${sans.className}`}>
       <Navbar username={props.calUsername} />
       <div data-testid="troubleshooter-atom">
         <TroubleShooter

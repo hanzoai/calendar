@@ -1,4 +1,4 @@
-import { ZenSans } from "@hanzo/font";
+import { Zen } from "@hanzo/font";
 import { _generateMetadataForStaticPage } from "app/_utils";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return await _generateMetadataForStaticPage("Icons Showcase", "", undefined, undefined, "/icons");
 }
 
-const sansFont = ZenSans;
+const sansFont = Zen;
 const calFont = localFont({
   src: "../../fonts/Zen-SemiBold.woff2",
   variable: "--font-cal",

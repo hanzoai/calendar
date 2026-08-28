@@ -1,4 +1,4 @@
-import { ZenSans } from "@hanzo/font";
+import { Zen } from "@hanzo/font";
 import { getLocale } from "@calcom/features/auth/lib/getLocale";
 import { loadTranslations } from "@calcom/i18n/server";
 import { IconSprites } from "@calcom/ui/components/icon";
@@ -14,7 +14,7 @@ import { AppRouterI18nProvider } from "./AppRouterI18nProvider";
 import { Providers } from "./providers";
 import { SpeculationRules } from "./SpeculationRules";
 
-const sansFont = ZenSans;
+const sansFont = Zen;
 const calFont = localFont({
   src: "../fonts/Zen-SemiBold.woff2",
   variable: "--font-cal",

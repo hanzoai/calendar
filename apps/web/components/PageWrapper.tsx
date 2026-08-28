@@ -9,7 +9,7 @@
 
 "use client";
 
-import { ZenSans } from "@hanzo/font";
+import { Zen } from "@hanzo/font";
 import { DefaultSeo } from "next-seo";
 import localFont from "next/font/local";
 import Head from "next/head";
@@ -32,7 +32,7 @@ export interface CalPageWrapper {
   PageWrapper?: AppProps["Component"]["PageWrapper"];
 }
 
-const sansFont = ZenSans;
+const sansFont = Zen;
 const calFont = localFont({
   src: "../fonts/Zen-SemiBold.woff2",
   variable: "--font-cal",

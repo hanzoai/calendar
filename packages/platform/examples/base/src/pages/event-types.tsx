@@ -1,5 +1,5 @@
 import { Navbar } from "@/components/Navbar";
-import { ZenSans } from "@hanzo/font";
+import { Zen } from "@hanzo/font";
 // eslint-disable-next-line @calcom/eslint/deprecated-imports-next-router
 import { useRouter } from "next/router";
 import { useState, useRef, useCallback } from "react";
@@ -13,7 +13,7 @@ import {
   CreateEventType,
 } from "@calcom/atoms";
 
-const inter = ZenSans;
+const sans = Zen;
 
 export default function Bookings(props: { calUsername: string; calEmail: string }) {
   const [eventTypeId, setEventTypeId] = useState<number | null>(null);
@@ -53,7 +53,7 @@ export default function Bookings(props: { calUsername: string; calEmail: string 
 
   return (
     <main
-      className={`flex min-h-screen flex-col ${inter.className} main text-default flex min-h-full w-full flex-col items-center overflow-visible`}>
+      className={`flex min-h-screen flex-col ${sans.className} main text-default flex min-h-full w-full flex-col items-center overflow-visible`}>
       <Navbar username={props.calUsername} />
       <div>
         <h1 className="mx-10 my-4 text-2xl font-semibold">
