@@ -213,10 +213,9 @@ for Logger level to be set at info, for example.
 
    </details>
 
-   If you don't want to create a local DB. Then you can also consider using services like railway.app, Northflank or render.
+   If you don't want to create a local DB. Then you can also consider using services like Northflank or render.
    
 
-   - [Setup postgres DB with railway.app](https://docs.railway.app/guides/postgresql)
    - [Setup postgres DB with Northflank](https://northflank.com/guides/deploy-postgres-database-on-northflank)
    - [Setup postgres DB with render](https://render.com/docs/databases)
 
@@ -624,12 +623,6 @@ docker-calcom-1  | @calcom/web:start:   url: 'http://testing.localhost:3000/api/
 docker-calcom-1  | @calcom/web:start:   message: 'request to http://testing.localhost:3000/api/auth/session failed, reason: getaddrinfo ENOTFOUND testing.localhost'
 docker-calcom-1  | @calcom/web:start: }
 ```
-
-### Railway
-
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/cal)
-
-You can deploy Cal.diy on [Railway](https://railway.app). The team at Railway also have a [detailed blog post](https://blog.railway.app/p/calendso) on deploying on their platform.
 
 ### Northflank
 
