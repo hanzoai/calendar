@@ -4,7 +4,6 @@ export default {
   elestio: "Elestio",
   gcp: "GCP",
   northflank: "Northflank",
-  railway: "Railway",
   render: "Render",
   vercel: "Vercel",
 };
